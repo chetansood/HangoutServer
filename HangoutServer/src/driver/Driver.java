@@ -1,5 +1,6 @@
 package driver;
 
+import db.DBUtil;
 import server.DefaultSocketServer;
 import server.Server;
 
@@ -9,5 +10,6 @@ public class Driver {
 		Server s = new Server();
 		s.createServerSocket();
 		s.processClientRequest();
+		//new DBUtil();
 	}
 }

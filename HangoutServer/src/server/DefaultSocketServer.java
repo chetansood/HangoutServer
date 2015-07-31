@@ -7,6 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import adapter.EventAdapter;
+import model.Event;
+
 public class DefaultSocketServer extends Thread implements SocketServerInterface, SocketServerConstant {
 	private ObjectInputStream reader;
     private ObjectOutputStream writer;
@@ -115,9 +118,44 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}*/
+		
+		String inputLine, outputLine;
+		outputLine = "Connection Established. Enter choice";
+		boolean keepRunning = true;
+		boolean receiveObject=false;
+		boolean receiveEvent = false;
+		try {
+			writer.writeUTF(outputLine);
+			this.writer.flush();
+			while(keepRunning){
+				if(receiveObject){
+					if(receiveEvent){
+						Event e = (Event)this.reader.readObject();
+						EventAdapter ea = new EventAdapter();
+						ea.createEvent(e);
+						writer.writeUTF("Event Added in DB");
+						writer.flush();
+						receiveEvent=false;
+					}
+					receiveObject=false;
+				}
+				else{
+					inputLine = this.reader.readUTF();
+					if(inputLine.equalsIgnoreCase("1"))
+					{
+						writer.writeUTF("Send Event Object");
+						receiveObject=true;
+						receiveEvent=true;
+					}
+				}
+			}
+			
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
-
-	
 
 	@Override
 	public void closeSession() {
