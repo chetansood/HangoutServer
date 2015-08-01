@@ -11,7 +11,7 @@ ServerSocket serverSocket = null;
 	//Create Socket
 	public void createServerSocket(){
         try {
-            serverSocket = new ServerSocket(8000);
+            serverSocket = new ServerSocket(8001);
         } catch (IOException e) {
             System.err.println("Could not listen on port: 4444.");
             System.exit(1);

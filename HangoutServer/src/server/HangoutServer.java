@@ -2,8 +2,8 @@ package server;
 
 import java.util.ArrayList;
 
-import model.Event;
-import model.User;
+import com.example.supersaiyans.hangout.model.Event;
+import com.example.supersaiyans.hangout.model.User;
 
 public interface HangoutServer {
 

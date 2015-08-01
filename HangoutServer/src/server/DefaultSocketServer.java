@@ -7,8 +7,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import com.example.supersaiyans.hangout.model.Event;
+
 import adapter.EventAdapter;
-import model.Event;
 
 public class DefaultSocketServer extends Thread implements SocketServerInterface, SocketServerConstant {
 	private ObjectInputStream reader;
@@ -133,17 +134,20 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 						Event e = (Event)this.reader.readObject();
 						EventAdapter ea = new EventAdapter();
 						ea.createEvent(e);
-						writer.writeUTF("Event Added in DB");
-						writer.flush();
+						//writer.writeUTF("Event Added in DB");
+						//writer.flush();
 						receiveEvent=false;
+						keepRunning=false;
 					}
 					receiveObject=false;
 				}
 				else{
 					inputLine = this.reader.readUTF();
+					System.out.println(inputLine);
 					if(inputLine.equalsIgnoreCase("1"))
 					{
 						writer.writeUTF("Send Event Object");
+						writer.flush();
 						receiveObject=true;
 						receiveEvent=true;
 					}

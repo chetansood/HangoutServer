@@ -1,4 +1,4 @@
-package model;
+package com.example.supersaiyans.hangout.model;
 
 public class Comment {
 	
