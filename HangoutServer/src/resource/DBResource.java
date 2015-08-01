@@ -1,5 +1,9 @@
 package resource;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DBResource {
 	//Static variables
 	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -43,5 +47,23 @@ public class DBResource {
 		String query = "insert into AppUser (userID, Name,latlocation,longlocation)"+
 				"values("+ userID + ",'" + userName + "'," + latitude + "," + longitude +")";
 			return query;
+	}
+
+	public static String insertIntoAppCommentQuery(int commentID, int eventID, int userID, String commentText) {
+		String query = "insert into AppComment (commentID,userID,eventID,text) values (" + commentID + "," +
+				eventID + "," + userID + ",'" + commentText + "')";
+		return query;
+	}
+
+	public static String getCommentQuery(int eventID) {
+		String query = "select commentID, userID, text from AppComment where eventID=" + eventID;
+		return query;
+	}
+
+	public static String getAllEventsQuery() {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		String date = dateFormat.format(new Date());
+		String query = "select eventID, name, latlocation,longlocation,time,userID,description from Event where time >=" + "'" + date + "'" ;
+		return query;
 	}
 }

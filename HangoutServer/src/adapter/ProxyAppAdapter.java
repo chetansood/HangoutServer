@@ -34,18 +34,17 @@ public abstract class ProxyAppAdapter {
 	}
 	
 	public void addComment (Comment comment){
-		
+		int commentID= comment.getCommentID();
+		int eventID = comment.getEventID();
+		int userID = comment.getUserID();
+		String commentText = comment.getCommentText();
+		dbUtil.addComment(commentID,eventID,userID,commentText);
 	}
 
-	public ArrayList<Event> getAllEvents(double latitude, double longitude) {
-		
-		return null;
+	public ArrayList<Event> getAllEvents() {
+		return dbUtil.getAllEvents();
 	}
 	
-	public ArrayList<Event> getAllComments(double latitude, double longitude) {
-		
-		return null;
-	}
 
 	public void createUser(User user) {
 		int userID = user.getID();
@@ -62,9 +61,8 @@ public abstract class ProxyAppAdapter {
 	
 	
 	
-	public ArrayList<Comment> getComments(int EventID) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Comment> getComments(int eventID) {
+		return dbUtil.getAllComments(eventID);
 	}
 
 
