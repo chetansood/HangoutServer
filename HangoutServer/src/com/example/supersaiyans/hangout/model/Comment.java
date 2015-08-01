@@ -1,14 +1,20 @@
 package com.example.supersaiyans.hangout.model;
 
-public class Comment {
+import java.io.Serializable;
+
+public class Comment implements Serializable{
 	
 	private int commentID;
+	private int userID;
+	private int eventID;
 	private String commentText;
 	
-	public Comment(int commentID, String commentText) {
+	public Comment(int commentID, int userID, int eventID,String commentText) {
 		super();
 		this.commentID = commentID;
 		this.commentText = commentText;
+		this.userID=userID;
+		this.eventID=eventID;
 	}
 	
 	public int getCommentID() {
