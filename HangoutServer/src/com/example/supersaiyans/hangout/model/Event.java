@@ -11,7 +11,8 @@ public class Event implements Serializable {
     private int participants;
     private String time;
     
-
+    static final long serialVersionUID = 43L;
+    
     public Event(String name, int ID, Double[] location, int organizer,String time) {
         this.name = name;
         this.ID = ID;

@@ -161,6 +161,7 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 					EventAdapter ea = new EventAdapter();
 					User u = ea.checkUser(userID);
 					if(u!=null){
+						System.out.println("user is null");
 						writer.writeObject(u);
 						writer.flush();
 					}

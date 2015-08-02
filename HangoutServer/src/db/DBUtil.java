@@ -219,6 +219,7 @@ public class DBUtil {
 		adapter.executeQuery(checkUserQuery);
 		if(adapter.rows!=null && adapter.getRowCount()>0){
 			userExists=true;
+			System.out.println("user exists");
 		}
 		if(userExists){
 			String getUserQuery = DBResource.getUserQuery(userID);
@@ -237,10 +238,13 @@ public class DBUtil {
 				Double[] location = new Double[2];
 				location[0]=latLocation;
 				location[1]=longLocation;
+				System.out.println("creating constructor -" +uID+name+location);
 				User u = new User(uID, name, location);
+				System.out.println(u.getID()+u.getName()+u.getLocation()[0]);
 				return u;
 			}
 			else{
+				System.out.println("constructor not called");
 				return null;
 			}
 			
