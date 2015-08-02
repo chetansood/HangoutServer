@@ -66,4 +66,17 @@ public class DBResource {
 		String query = "select eventID, name, latlocation,longlocation,time,userID,description from Event where time >=" + "'" + date + "'" ;
 		return query;
 	}
+
+	public static String getUserEventsQuery(int userID) {
+		//DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		//String date = dateFormat.format(new Date());
+		String query = "select eventID, name, latlocation,longlocation,time,userID,description "
+				+ "from Event where eventID IN (select eventID from EventUserMap where userID ="  + userID ;
+		return query;
+	}
+
+	public static String getUserQuery(int userID) {
+		String query = "select userid,name,latlocation,longlocation,userloginid,userloginpwd from appuser where userid = "+userID;
+		return query;
+	}
 }

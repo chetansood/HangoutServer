@@ -21,9 +21,11 @@ ServerSocket serverSocket = null;
 	//Process client request
 	public void processClientRequest(){
         try {
-            Socket clientSocket = serverSocket.accept();
-            DefaultSocketServer dSocket = new DefaultSocketServer(clientSocket);
-            dSocket.start();
+        	while(true){
+        		 Socket clientSocket = serverSocket.accept();
+                 DefaultSocketServer dSocket = new DefaultSocketServer(clientSocket);
+                 dSocket.start();
+        	}
         } catch (IOException e) {
             System.err.println("Accept Failed");
             System.exit(1);

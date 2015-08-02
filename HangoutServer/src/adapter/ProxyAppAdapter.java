@@ -65,5 +65,11 @@ public abstract class ProxyAppAdapter {
 		return dbUtil.getAllComments(eventID);
 	}
 
+	public ArrayList<Event> getUserEvents(int userID) {
+		return dbUtil.getUserEvents(userID);
+	}
 
+	public User checkUser(int userID) {
+		return dbUtil.checkUser(userID);
+	}
 }

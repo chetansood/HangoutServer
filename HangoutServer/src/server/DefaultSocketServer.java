@@ -65,63 +65,6 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 
 	@Override
 	public void handleSession() {
-		/*String inputLine, outputLine;
-		outputLine = "Connection Established. Enter choice";
-		boolean keepRunning = true;
-		boolean receiveObject=false;
-		boolean sendAutomobile = false;
-		try {
-			writer.writeUTF(outputLine);
-			this.writer.flush();
-			while(keepRunning){
-				if(!receiveObject){
-					inputLine = this.reader.readUTF();
-					System.out.println("Client - " + inputLine);
-					if(inputLine.equalsIgnoreCase("Build Automobile")){
-						this.writer.writeUTF("Send Automobile");
-						receiveObject=true;
-						this.writer.flush();
-					}
-					else if(inputLine.equalsIgnoreCase("Great thanks")){
-						writer.writeUTF(outputLine);
-						this.writer.flush();
-					}
-					else if(inputLine.equalsIgnoreCase("Show Automobiles")){
-						String automobiles = getAutomobileList();
-						writer.writeUTF(automobiles);
-						this.writer.flush();
-					}
-					else if(inputLine.equalsIgnoreCase("Bye")){
-						System.out.println(1);
-						keepRunning=false;
-					}
-					else if(inputLine.contains("Send auto-")){
-						String autoName = inputLine.substring(10).trim();
-						System.out.println(autoName);
-						Automobile a = getAutomobile(autoName);
-						System.out.println("got auto, now sending");
-						this.writer.writeObject(a);;
-					}
-					else{
-						writer.writeUTF(outputLine);
-						this.writer.flush();
-					}
-				}
-				else{
-					this.prop = (Properties)this.reader.readObject();
-					System.out.println("success");
-					System.out.println(this.prop.getCarMake());
-					addAutomobile();
-					this.writer.writeUTF("Automobile added");
-					this.writer.flush();
-					receiveObject=false;
-				}
-			}
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}*/
 		
 		String inputLine, outputLine;
 		outputLine = "Connection Established. Enter choice";
@@ -131,6 +74,9 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 		boolean getJoinEventData=false;
 		boolean receiveComment = false;
 		boolean receiveUser = false;
+		boolean getEventIDForComment=false;
+		boolean getUserIDForEvent=false;
+		boolean receiveUserIDToFetchUser= false;
 		try {
 			writer.writeUTF(outputLine);
 			this.writer.flush();
@@ -181,6 +127,46 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 					ea.joinEvent(eventID, userID);
 					keepRunning=false;
 				}
+				
+				else if (getEventIDForComment){
+					inputLine = this.reader.readUTF();
+					int eventID = Integer.parseInt(inputLine);
+					System.out.println(inputLine);
+					EventAdapter ea = new EventAdapter();
+					ArrayList<Comment> commentList = ea.getComments(eventID);
+					if(commentList!=null){
+						writer.writeObject(commentList);
+						writer.flush();
+					}
+					keepRunning=false;
+				}
+				
+				else if (getUserIDForEvent){
+					inputLine = this.reader.readUTF();
+					int userID = Integer.parseInt(inputLine);
+					System.out.println(inputLine);
+					EventAdapter ea = new EventAdapter();
+					ArrayList<Event> eventList = ea.getUserEvents(userID);
+					if(eventList!=null){
+						writer.writeObject(eventList);
+						writer.flush();
+					}
+					keepRunning=false;
+				}
+				
+				else if (receiveUserIDToFetchUser){
+					inputLine = this.reader.readUTF();
+					int userID = Integer.parseInt(inputLine);
+					System.out.println(inputLine);
+					EventAdapter ea = new EventAdapter();
+					User u = ea.checkUser(userID);
+					if(u!=null){
+						writer.writeObject(u);
+						writer.flush();
+					}
+					keepRunning=false;
+				}
+				
 				else{
 					inputLine = this.reader.readUTF();
 					System.out.println(inputLine);
@@ -216,9 +202,37 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 						//
 						EventAdapter ea = new EventAdapter();
 						ArrayList<Event> listEvents = ea.getAllEvents();
-						System.out.println(listEvents.iterator().next().getID());
-						writer.writeObject(listEvents);
+						if(listEvents!=null){
+							System.out.println(listEvents.iterator().next().getID());
+							writer.writeObject(listEvents);
+							writer.flush();
+							keepRunning=false;
+						}
+						else{
+							System.out.println("nulll");
+						}
+					}
+					
+					else if(inputLine.equalsIgnoreCase("6"))
+					{
+						writer.writeUTF("Send event id");
 						writer.flush();
+						getEventIDForComment=true;
+					}
+					
+
+					else if(inputLine.equalsIgnoreCase("7"))
+					{
+						writer.writeUTF("Send user id");
+						writer.flush();
+						getUserIDForEvent=true;
+					}
+					
+					else if(inputLine.equalsIgnoreCase("8"))
+					{
+						writer.writeUTF("Send user id");
+						writer.flush();
+						receiveUserIDToFetchUser=true;
 					}
 				}
 			}
