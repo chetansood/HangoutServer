@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import resource.ServerResource;
+
 public class Server {
 
 ServerSocket serverSocket = null;
@@ -11,7 +13,7 @@ ServerSocket serverSocket = null;
 	//Create Socket
 	public void createServerSocket(){
         try {
-            serverSocket = new ServerSocket(8004);
+            serverSocket = new ServerSocket(ServerResource.port);
         } catch (IOException e) {
             System.err.println("Could not listen on port: 4444.");
             System.exit(1);
