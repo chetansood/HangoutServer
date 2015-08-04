@@ -29,11 +29,12 @@ public class DBUtil {
 	}
 
 	public void joinEvent(int eventID, int userID) {
+		System.out.println("eventid & userid" + eventID + userID);
 		String checkUserQuery = DBResource.checkUserQuery(userID);
 		String checkEventQuery = DBResource.checkEventQuery(eventID);
 		boolean eventExists=false;
 		boolean userExists=false;
-		
+		System.out.println("inside--------------join event");
 		adapter.rows=null;
 		adapter.executeQuery(checkUserQuery);
 		if(adapter.rows!=null && adapter.getRowCount()>0){
@@ -44,9 +45,11 @@ public class DBUtil {
 		if(adapter.rows!=null && adapter.getRowCount()>0){
 			eventExists=true;
 		}
+		System.out.println("inside join event , boolean values ----" +eventExists+userExists);
 		
 		if(eventExists&&userExists){
 			//String addParticipantQuery = DBResource.addParticipantQuery(eventID);
+			System.out.println("registering user to event");
 			String addUserEventMapQuery = DBResource.addUserEventMapQuery(eventID,userID);
 			adapter.executeUpdate(addUserEventMapQuery);
 		}
@@ -58,6 +61,9 @@ public class DBUtil {
 	}
 
 	public void addComment(int commentID, int eventID, int userID, String commentText) {
+		System.out.println("sssssssssss"+commentID+eventID+userID+commentText);
+		System.out.println(eventID);
+		
 		String checkUserQuery = DBResource.checkUserQuery(userID);
 		String checkEventQuery = DBResource.checkEventQuery(eventID);
 		boolean eventExists=false;
@@ -73,6 +79,7 @@ public class DBUtil {
 		if(adapter.rows!=null && adapter.getRowCount()>0){
 			eventExists=true;
 		}
+		System.out.println(eventExists + " " + userExists);
 		
 		if(eventExists&&userExists){
 			String addCommentQuery = DBResource.insertIntoAppCommentQuery(commentID,eventID,userID,commentText);
@@ -166,7 +173,7 @@ public class DBUtil {
 	}
 
 	public ArrayList<Event> getUserEvents(int userID) {
-		
+		System.out.println("inside get user events" + userID);
 		ArrayList<Event> eventList = new ArrayList<Event>();
 		String query = DBResource.getUserEventsQuery(userID);
 		adapter.rows=null;

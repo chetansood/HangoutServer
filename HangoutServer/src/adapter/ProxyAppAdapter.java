@@ -33,12 +33,13 @@ public abstract class ProxyAppAdapter {
 		dbUtil.joinEvent(eventID,userID);
 	}
 	
-	public void addComment (Comment comment){
-		int commentID= comment.getCommentID();
-		int eventID = comment.getEventID();
-		int userID = comment.getUserID();
-		String commentText = comment.getCommentText();
-		dbUtil.addComment(commentID,eventID,userID,commentText);
+	public void addComment (Comment commen){
+		int commentID= commen.getCommentID();
+		int essID = commen.getEventID();
+		int ussID = commen.getUserID();
+		String commentText = commen.getCommentText();
+		System.out.println(commentID+essID+ussID+commentText);
+		dbUtil.addComment(commentID,essID,ussID,commentText);
 	}
 
 	public ArrayList<Event> getAllEvents() {

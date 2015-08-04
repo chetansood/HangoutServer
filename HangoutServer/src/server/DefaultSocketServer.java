@@ -13,6 +13,7 @@ import com.example.supersaiyans.hangout.model.Event;
 import com.example.supersaiyans.hangout.model.User;
 
 import adapter.EventAdapter;
+import db.DBUtil;
 
 public class DefaultSocketServer extends Thread implements SocketServerInterface, SocketServerConstant {
 	private ObjectInputStream reader;
@@ -93,9 +94,14 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 					}
 					
 					else if(receiveComment){
-						Comment c = (Comment)this.reader.readObject();
+						Comment com = (Comment)this.reader.readObject();
+						System.out.println("chkkk"+com.getEventID()+com.getUserID());
+						/*c.setEventID(c.getEventID());
+						c.setUserID(c.getUserID());*/
+						//DBUtil dbu = new DBUtil();
+						//dbu.addComment(c.getCommentID(), c.getCommentID(), c.getUserID(), c.getCommentText());
 						EventAdapter ea = new EventAdapter();
-						ea.addComment(c);
+						ea.addComment(com);
 						//writer.writeUTF("Event Added in DB");
 						//writer.flush();
 						receiveComment=false;
@@ -121,7 +127,7 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 					System.out.println(inputLine);
 					String[] splitData = inputLine.split(",");
 					int eventID = Integer.parseInt(splitData[0]);
-					int userID = Integer.parseInt(splitData[0]);
+					int userID = Integer.parseInt(splitData[1]);
 					System.out.println(eventID + " " + userID);
 					EventAdapter ea = new EventAdapter();
 					ea.joinEvent(eventID, userID);

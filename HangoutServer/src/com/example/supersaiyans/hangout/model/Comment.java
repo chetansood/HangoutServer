@@ -8,9 +8,10 @@ public class Comment implements Serializable{
 	private int userID;
 	private int eventID;
 	private String commentText;
+	static final long serialVersionUID = 44L;
 	
 	public Comment(int commentID, int userID, int eventID,String commentText) {
-		super();
+		//super();
 		this.commentID = commentID;
 		this.commentText = commentText;
 		this.userID=userID;
@@ -45,5 +46,9 @@ public class Comment implements Serializable{
 	public void setEventID(int eventID) {
 		this.eventID = eventID;
 	}
+	
+	/*public String toString() {
+        return "commentId: " + commentID + ", userId: " + userID + ", eventID: " + eventID + ", comment: " + commentText;
+    }*/
 
 }

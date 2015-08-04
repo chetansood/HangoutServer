@@ -1,2 +1,5 @@
-/resource/
+/adapter/
+/com/
+/db/
 /server/
+/resource/

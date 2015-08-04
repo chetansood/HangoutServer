@@ -30,7 +30,7 @@ public class DBResource {
 	}
 
 	public static String checkEventQuery(int eventID) {
-		String query = "select eventid from appuser where userid = "+eventID;
+		String query = "select eventid from event where eventid = "+eventID;
 		return query;
 	}
 
@@ -51,7 +51,7 @@ public class DBResource {
 
 	public static String insertIntoAppCommentQuery(int commentID, int eventID, int userID, String commentText) {
 		String query = "insert into AppComment (commentID,userID,eventID,text) values (" + commentID + "," +
-				eventID + "," + userID + ",'" + commentText + "')";
+				userID + "," + eventID + ",'" + commentText + "')";
 		return query;
 	}
 
@@ -71,7 +71,7 @@ public class DBResource {
 		//DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 		//String date = dateFormat.format(new Date());
 		String query = "select eventID, name, latlocation,longlocation,time,userID,description "
-				+ "from Event where eventID IN (select eventID from EventUserMap where userID ="  + userID ;
+				+ "from Event where eventID IN (select eventID from EventUserMap where userID ="  + userID + ")" ;
 		return query;
 	}
 
