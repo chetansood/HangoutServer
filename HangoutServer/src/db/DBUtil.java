@@ -59,6 +59,11 @@ public class DBUtil {
 		String createUserQuery = DBResource.insertIntoAppUserQuery(userID, userName, latitude, longitude);
 		adapter.executeUpdate(createUserQuery);
 	}
+	
+	public void createUser (int userID, String userName, double latitude, double longitude,String fb_id){
+		String createUserQuery = DBResource.insertIntoAppUserQueryWithFbID(userID, userName, latitude, longitude,fb_id);
+		adapter.executeUpdate(createUserQuery);
+	}
 
 	public void addComment(int commentID, int eventID, int userID, String commentText) {
 		System.out.println("sssssssssss"+commentID+eventID+userID+commentText);
@@ -109,8 +114,8 @@ public class DBUtil {
 				int rowCount = adapter.getRowCount();
 				//int colCount = adapter.getColumnCount();
 				for (int i=0; i<adapter.getRowCount();i++){
-					commentID=(int)adapter.getValueAt(i, 0);
-					userID = (int)adapter.getValueAt(i, 1);
+					commentID= ((BigDecimal)adapter.getValueAt(i, 0)).intValue();
+					userID = ((BigDecimal)adapter.getValueAt(i, 1)).intValue();
 					text= (String)adapter.getValueAt(i, 2);
 					if(commentID!=0 && userID!=0 && text!=null){
 						commentList.add(new Comment(commentID, userID, eventID, text));
@@ -246,9 +251,17 @@ public class DBUtil {
 				location[0]=latLocation;
 				location[1]=longLocation;
 				System.out.println("creating constructor -" +uID+name+location);
-				User u = new User(uID, name, location);
-				System.out.println(u.getID()+u.getName()+u.getLocation()[0]);
-				return u;
+				if(fbLoginID!=null){
+					User u = new User(uID, name, location,fbLoginID);
+					System.out.println(u.getID()+u.getName()+u.getLocation()[0]+fbLoginID);
+					return u;
+				}
+				else{
+					User u = new User(uID, name, location);
+					System.out.println(u.getID()+u.getName()+u.getLocation()[0]);
+					return u;
+				}
+			
 			}
 			else{
 				System.out.println("constructor not called");

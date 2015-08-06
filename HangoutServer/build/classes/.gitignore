@@ -1,5 +1,6 @@
-/adapter/
 /com/
 /db/
-/server/
+/driver/
 /resource/
+/server/
+/adapter/

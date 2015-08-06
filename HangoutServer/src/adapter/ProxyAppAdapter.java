@@ -53,6 +53,13 @@ public abstract class ProxyAppAdapter {
 		Double[] location = user.getLocation();
 		double latitude = location[0];
 		double longitude = location[1];
+		if(user.getFb_id()!=null){
+			String fbID = user.getFb_id();
+			dbUtil.createUser(userID, name, latitude, longitude,fbID);
+		}
+		else{
+			dbUtil.createUser(userID, name, latitude, longitude);
+		}
 		dbUtil.createUser(userID, name, latitude, longitude);
 	}
 

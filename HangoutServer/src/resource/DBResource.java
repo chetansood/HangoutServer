@@ -79,4 +79,11 @@ public class DBResource {
 		String query = "select userid,name,latlocation,longlocation,userloginid,userloginpwd from appuser where userid = "+userID;
 		return query;
 	}
+
+	public static String insertIntoAppUserQueryWithFbID(int userID, String userName, double latitude, double longitude,
+			String fb_id) {
+		String query = "insert into AppUser (userID, Name,latlocation,longlocation,userloginid)"+
+				"values("+ userID + ",'" + userName + "'," + latitude + "," + longitude + "," + fb_id +")";
+			return query;
+	}
 }

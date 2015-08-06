@@ -20,6 +20,15 @@ public class Event implements Serializable {
         this.organizer = organizer;
         this.time=time;
     }
+    
+    public Event(String name, int ID, Double[] location, int organizer,String time, String description) {
+        this.name = name;
+        this.ID = ID;
+        this.location = location;
+        this.organizer = organizer;
+        this.time=time;
+        this.description=description;
+    }
 
     public Event(String name, int ID, Double[] location) {
         this.name = name;

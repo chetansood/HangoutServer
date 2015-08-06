@@ -17,6 +17,13 @@ public class User implements Serializable{
         this.name = name;
         this.location = location;
     }
+    
+    public User(int ID, String name, Double[] location,String fb_id) {
+        this.ID = ID;
+        this.name = name;
+        this.location = location;
+        this.fb_id=fb_id;
+    }
 
     public User(int id, String fb_id, String name) {
         this.ID = id;
@@ -67,5 +74,13 @@ public class User implements Serializable{
     public String toString() {
         return "user ID: " + ID + ", fb_id: " + fb_id + ", name: " + name;
     }
+
+	public String getFb_id() {
+		return fb_id;
+	}
+
+	public void setFb_id(String fb_id) {
+		this.fb_id = fb_id;
+	}
 
 }
