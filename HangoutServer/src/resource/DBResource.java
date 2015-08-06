@@ -15,6 +15,7 @@ public class DBResource {
 	public static final String displayAllAppUsers = "select * from AppUser;";
 	public static final String displayAllAppComment = "select * from AppComment;";
 	public static final String displayAllEventCommentMap = "select * from EventCommentMap ;";
+	public static int count = 11;
 	
 	public static String insertIntoEventQuery(int eventID, String eventName, int organizer, double latitude, double longitude,
 			String time, String description){

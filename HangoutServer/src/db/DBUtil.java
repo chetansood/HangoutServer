@@ -284,7 +284,9 @@ public class DBUtil {
 		
 		if(adapter.rows!=null){
 			int count=((BigDecimal)adapter.getValueAt(0, 0)).intValue();
-			if (count>0){System.out.println(count);
+			if (count>0 && count>DBResource.count){System.out.println(count);
+				DBResource.count=count;
+				System.out.println("dbres count--" + DBResource.count);
 				return "yes";
 			}
 		}
