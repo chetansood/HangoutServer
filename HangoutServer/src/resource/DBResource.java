@@ -86,4 +86,11 @@ public class DBResource {
 				"values("+ userID + ",'" + userName + "'," + latitude + "," + longitude + "," + fb_id +")";
 			return query;
 	}
+
+	public static String checkNewEventsQuery() {
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		String date = dateFormat.format(new Date());
+		String query = "select count(*) from event where time > '"+date+"'";
+		return query;
+	}
 }

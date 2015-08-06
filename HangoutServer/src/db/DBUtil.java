@@ -273,4 +273,22 @@ public class DBUtil {
 			return null;
 		}
 	}
+
+	public String checkNewEvents() {
+		String newEvents = "no";
+		String checkNewEventsQuery = DBResource.checkNewEventsQuery();
+		adapter.rows=null;
+		adapter.columnNames=null;
+		adapter.executeQuery(checkNewEventsQuery);
+		System.out.println(checkNewEventsQuery);
+		
+		if(adapter.rows!=null){
+			int count=((BigDecimal)adapter.getValueAt(0, 0)).intValue();
+			if (count>0){System.out.println(count);
+				return "yes";
+			}
+		}
+		return newEvents;
+		
+	}
 }

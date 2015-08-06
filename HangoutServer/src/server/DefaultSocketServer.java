@@ -241,6 +241,21 @@ public class DefaultSocketServer extends Thread implements SocketServerInterface
 						writer.flush();
 						receiveUserIDToFetchUser=true;
 					}
+					
+					else if(inputLine.equalsIgnoreCase("9"))
+					{
+						EventAdapter ea = new EventAdapter();
+						String newEvents = ea.checkNewEvents();
+						if(newEvents.equals("yes")){
+							writer.writeUTF("yes");
+							writer.flush();
+						}else{
+							writer.writeUTF("no");
+							writer.flush();
+						}
+						
+						keepRunning=false;
+					}
 				}
 			}
 			

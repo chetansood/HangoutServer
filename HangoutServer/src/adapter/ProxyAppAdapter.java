@@ -80,4 +80,10 @@ public abstract class ProxyAppAdapter {
 	public User checkUser(int userID) {
 		return dbUtil.checkUser(userID);
 	}
+	
+	public String checkNewEvents() {
+		String newEvents = "no";
+		newEvents = dbUtil.checkNewEvents();
+		return newEvents;
+	}
 }
